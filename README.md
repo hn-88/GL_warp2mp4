@@ -13,7 +13,7 @@ make GL_warp2mp4.bin
 ```
 Parameters are set using GL_warp2mp4.ini in the build folder.
 
-A file open dialog asks you for the input file. The output file is put in the same directory, with F.avi appended to the input filename. The codec used for the output is the same codec as for the input if available on your system, or as chosen in the ini file. (If the input file's codec is not available, the output is saved as an uncompressed avi, which can quickly become huge.)
+A file open dialog asks you for the input file. The output file is put in the same directory, with W.avi appended to the input filename. The codec used for the output is the same codec as for the input if available on your system, or as chosen in the ini file. (If the input file's codec is not available, the output is saved as an uncompressed avi, which can quickly become huge.)
 
 Keyboard commands are
 ```
