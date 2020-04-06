@@ -31,6 +31,7 @@
  * https://www.codeproject.com/Articles/34472/Video-Texture-in-OpenGL
  * https://stackoverflow.com/questions/9097756/converting-data-from-glreadpixels-to-opencvmat/9098883
  * http://www.songho.ca/opengl/gl_pbo.html
+ * http://www.songho.ca/opengl/gl_fbo.html
  * 
  * */
  
@@ -113,6 +114,7 @@ bool ReadMesh(std::string strpathtowarpfile)
 	{
 		std::cout << "Unable to read mesh data file (similar to EP_xyuv_1920.map), exiting!" << std::endl;
 		onExitCleanup();
+		
 		exit(0);
 	}
 }
@@ -243,152 +245,155 @@ void PreCreateGrid()
 	// lens.c  
 	
 	
-	GLfloat white[4] = {1.0,1.0,1.0,1.0};
+	//~ GLfloat white[4] = {1.0,1.0,1.0,1.0};
 
-	glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
-	glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+	//~ glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
+	//~ glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
+	//~ glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
+	//~ glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 
-	glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
-	//glDrawBuffer(GL_BACK_LEFT);
-	//let's draw directly to front buffer, since glutSwapBuffers crashes my system
+	//~ glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+	//~ //glDrawBuffer(GL_BACK_LEFT);
+	//~ //let's draw directly to front buffer, since glutSwapBuffers crashes my system
 	
-	// we're reading from GL_BACK with readpixels, so
-	//glDrawBuffer(GL_BACK);
+	//~ // we're reading from GL_BACK with readpixels, so
+	//~ //glDrawBuffer(GL_BACK);
 
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//~ //glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
+	//~ glMatrixMode(GL_PROJECTION);
+	//~ //glLoadIdentity();
 
-	glOrtho(-1.77778 , 1.77778 , -1.0 , 1.0 , 1.0 , 10000.0); 
-	// hard-coded for 16:9 output! Hack!
+	//~ glOrtho(-1.77778 , 1.77778 , -1.0 , 1.0 , 1.0 , 10000.0); 
+	//~ // hard-coded for 16:9 output! Hack!
 
-	glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
+	//~ glMatrixMode(GL_MODELVIEW);
+	//~ //glLoadIdentity();
 
-	gluLookAt(0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0);
-	glNormal3f(0.0,0.0,1.0);
-	glColor3f(1.0,1.0,1.0);
-	glDisable(GL_LIGHTING);
-	glShadeModel(GL_SMOOTH); // changed to GL_FLAT to GL_SMOOTH to remove "tiling" effect
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,white);
-	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); 
+	//~ gluLookAt(0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0);
+	//~ glNormal3f(0.0,0.0,1.0);
+	//~ glColor3f(1.0,1.0,1.0);
+	//~ glDisable(GL_LIGHTING);
+	//~ glShadeModel(GL_SMOOTH); // changed to GL_FLAT to GL_SMOOTH to remove "tiling" effect
+	//~ glLightModelfv(GL_LIGHT_MODEL_AMBIENT,white);
+	//~ glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); 
 	//glEnable(GL_TEXTURE_2D);
 	//glBindTexture(GL_TEXTURE_2D,textureid);
 	// CreateGrid()
 }
 
+
 bool DrawGL()
 {
 	//from https://github.com/hn-88/GL_warp2Avi/blob/master/GL2AviView.cpp
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
+	//~ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// Clear Screen And Depth Buffer
 
-	// from NeHe lesson 35
+	//~ // from NeHe lesson 35
 	
-	//GrabAVIFrame(frame);										// Grab A Frame From The AVI
-	inputVideo >> src; // gets the next frame into image
-	if (src.empty()) // end of video;
-	{
-		onExitCleanup();
-		exit(0);
-	}
-	glTexSubImage2D (GL_TEXTURE_2D, 0, 0, 0, 2048, 2048, GL_BGR, GL_UNSIGNED_BYTE, src.data);
-	// Hack - change 2048 to a variable
+	//~ //GrabAVIFrame(frame);										// Grab A Frame From The AVI
+	//~ inputVideo >> src; // gets the next frame into image
+	//~ if (src.empty()) // end of video;
+	//~ {
+		//~ onExitCleanup();
+		//~ exit(0);
+	//~ }
+	//~ flip(src, flipped, 0);	// flip up down
+	//~ resize(flipped, srcres, Size(2048,2048), 0, 0, INTER_CUBIC);
+	//~ glTexSubImage2D (GL_TEXTURE_2D, 0, 0, 0, 2048, 2048, GL_BGR, GL_UNSIGNED_BYTE, srcres.data);
+	//~ // Hack - change 2048 to a variable
 
-	glLoadIdentity();										// Reset The Modelview Matrix
+	//~ glLoadIdentity();										// Reset The Modelview Matrix
 
 	 
-	// code below is adapted from 
-	// lens.c  
-	int i,j; 
-	//XYZ right,focus;
-	unsigned int textureid;
-	GLfloat white[4] = {1.0,1.0,1.0,1.0};
+	//~ // code below is adapted from 
+	//~ // lens.c  
+	//~ int i,j; 
+	//~ //XYZ right,focus;
+	//~ unsigned int textureid;
+	//~ GLfloat white[4] = {1.0,1.0,1.0,1.0};
 
-	glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
-	glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
-	glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
+	//~ glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP);
+	//~ glTexParameterf(GL_TEXTURE_2D,GL_TEXTURE_WRAP_T,GL_CLAMP);
+	//~ glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR); 
+	//~ glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_LINEAR);
 
-	glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
-	glDrawBuffer(GL_BACK_LEFT);
-	//let's draw directly to front buffer, since glutSwapBuffers crashes my system
+	//~ glTexEnvf(GL_TEXTURE_ENV,GL_TEXTURE_ENV_MODE,GL_MODULATE);
+	//~ glDrawBuffer(GL_BACK_LEFT);
+	//~ //let's draw directly to front buffer, since glutSwapBuffers crashes my system
 	
-	// we're reading from GL_BACK with readpixels, so
-	//glDrawBuffer(GL_BACK);
+	//~ // we're reading from GL_BACK with readpixels, so
+	//~ //glDrawBuffer(GL_BACK);
 
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//~ glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	//~ glMatrixMode(GL_PROJECTION);
+	//~ glLoadIdentity();
 
-	glOrtho(-1.77778 , 1.77778 , -1.0 , 1.0 , 1.0 , 10000.0); 
-	// hard-coded for 16:9 output! Hack!
+	//~ glOrtho(-1.77778 , 1.77778 , -1.0 , 1.0 , 1.0 , 10000.0); 
+	//~ // hard-coded for 16:9 output! Hack!
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	//~ glMatrixMode(GL_MODELVIEW);
+	//~ glLoadIdentity();
 
-	gluLookAt(0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0);
-	glNormal3f(0.0,0.0,1.0);
-	glColor3f(1.0,1.0,1.0);
-	glDisable(GL_LIGHTING);
-	glShadeModel(GL_SMOOTH); // changed to GL_FLAT to GL_SMOOTH to remove "tiling" effect
-	glLightModelfv(GL_LIGHT_MODEL_AMBIENT,white);
-	glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); 
-	//glEnable(GL_TEXTURE_2D);
-	//glBindTexture(GL_TEXTURE_2D,textureid);
-	CreateGrid();
-	//glDisable(GL_TEXTURE_2D);
-	glutSwapBuffers(); 	
-	// for some reason, drawing to back buffer and then calling
-	// glutSwapBuffers crashes on my system
+	//~ gluLookAt(0.0,0.0,1.0,0.0,0.0,0.0,0.0,1.0,0.0);
+	//~ glNormal3f(0.0,0.0,1.0);
+	//~ glColor3f(1.0,1.0,1.0);
+	//~ glDisable(GL_LIGHTING);
+	//~ glShadeModel(GL_SMOOTH); // changed to GL_FLAT to GL_SMOOTH to remove "tiling" effect
+	//~ glLightModelfv(GL_LIGHT_MODEL_AMBIENT,white);
+	//~ glPolygonMode(GL_FRONT_AND_BACK,GL_FILL); 
+	//~ //glEnable(GL_TEXTURE_2D);
+	//~ //glBindTexture(GL_TEXTURE_2D,textureid);
+	//~ CreateGrid();
+	//~ //glDisable(GL_TEXTURE_2D);
+	//~ glutSwapBuffers(); 	
+	//~ // for some reason, drawing to back buffer and then calling
+	//~ // glutSwapBuffers crashes on my system
 	 
-	glFlush ();	
-	// added this to see if it draws	
-	glutPostRedisplay();											// Flush The GL Rendering Pipeline
+	//~ glFlush ();	
+	//~ // added this to see if it draws	
+	//~ glutPostRedisplay();											// Flush The GL Rendering Pipeline
 	
-	//frame++;
-	std::cout << "\x1B[0E"; // Move to the beginning of the current line.
-	fps++;
-	t_end = time(NULL);
-	if (t_end - t_start >= 5)
-	{
-		std::cout << "Frame: " << framenum++ << " fps: " << fps/5 <<  std::flush;
-		t_start = time(NULL);
-		fps = 0;
-	}
-	else
-	std::cout << "Frame: " << framenum++ << std::flush;
+	//~ //frame++;
+	//~ std::cout << "\x1B[0E"; // Move to the beginning of the current line.
+	//~ fps++;
+	//~ t_end = time(NULL);
+	//~ if (t_end - t_start >= 5)
+	//~ {
+		//~ std::cout << "Frame: " << framenum++ << " fps: " << fps/5 <<  std::flush;
+		//~ t_start = time(NULL);
+		//~ fps = 0;
+	//~ }
+	//~ else
+	//~ std::cout << "Frame: " << framenum++ << std::flush;
 
 		
 
-	return 1;		
+	//~ return 1;		
 }
 
 void GenerateMovie()
 {
 	// from void CMainFrame::OnAvigenerationGenerate()
 	// reading back buffer
-	glReadBuffer(GL_BACK);
-	for(int i=0;i<nFrames;i++)
-	{
-		// render frame
-		DrawGL();
-		// SwapBuffers();
-		glutSwapBuffers();
-		// Copy from OpenGL to buffer
-		glReadPixels(0,0,outputw,outputh,GL_BGRA,GL_UNSIGNED_BYTE,dst.data);
-		//glReadPixels(0,0,lpbih->biWidth,lpbih->biHeight,GL_BGR_EXT,GL_UNSIGNED_BYTE,bmBits);
-		// GL_BGRA makes it much faster.
-		// https://stackoverflow.com/questions/11409693/asynchronous-glreadpixels-with-pbo
-		cvtColor(dst, dstbgr, CV_BGRA2BGR);
-		flip(dst, flipped, 0);
-		outputVideo << flipped; 
+	//~ glReadBuffer(GL_BACK);
+	//~ for(int i=0;i<nFrames;i++)
+	//~ {
+		//~ // render frame
+		//~ DrawGL();
+		//~ // SwapBuffers();
+		//~ glutSwapBuffers();
+		//~ // Copy from OpenGL to buffer
+		//~ glReadPixels(0,0,outputw,outputh,GL_BGRA,GL_UNSIGNED_BYTE,dst.data);
+		//~ //glReadPixels(0,0,lpbih->biWidth,lpbih->biHeight,GL_BGR_EXT,GL_UNSIGNED_BYTE,bmBits);
+		//~ // GL_BGRA makes it much faster.
+		//~ // https://stackoverflow.com/questions/11409693/asynchronous-glreadpixels-with-pbo
+		//~ cvtColor(dst, dstbgr, CV_BGRA2BGR);
+		//~ flip(dst, flipped, 0);
+		//~ outputVideo << flipped; 
 		
 		//Bar.StepIt();
-	}
+	// }
 
 
 }
@@ -401,7 +406,17 @@ void onExitCleanup()
     imageData = 0;
 
     // clean up texture
-    glDeleteTextures(1, &textureId);
+    glDeleteTextures(1, &fbotextureId);
+    glDeleteTextures(1, &srctextureId);
+    
+    // clean up FBO, RBO
+    if(fboSupported)
+    {
+        glDeleteFramebuffers(1, &fboId);
+        fboId = 0;
+        glDeleteRenderbuffers(1, &rboDepthId);
+        rboDepthId = 0;
+    }
 
     // clean up PBOs
     if(pboSupported)
@@ -410,7 +425,7 @@ void onExitCleanup()
     }
     
     glutDestroyWindow(g_hWindow);
-	std::cout << std::endl << "Finished writing" << std::endl;
+	std::cout << std::endl << "Finished writing." << std::endl;
 }
 
 GLvoid InitGL()
@@ -488,35 +503,93 @@ GLvoid InitGL()
 
 GLvoid OnDisplay(void)
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glEnable(GL_TEXTURE_2D);
+	if(fboUsed)
+    {
+        // set the rendering destination to FBO
+        //glBindFramebuffer(GL_FRAMEBUFFER, fboId);
+        
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, srctextureId);
 
-	// Set Projection Matrix
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity();
-	//gluOrtho2D(0, windoww, windowh, 0);
-	gluOrtho2D(-outputw/outputh, outputw/outputh , -1.0 , 1.0);
-	
+		// Set Projection Matrix
+		glMatrixMode (GL_PROJECTION);
+		glLoadIdentity();
+		//gluOrtho2D(0, windoww, windowh, 0);
+		gluOrtho2D(-outputw/outputh, outputw/outputh , -1.0 , 1.0);
+		
+		// Switch to Model View Matrix
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
 
-	// Switch to Model View Matrix
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+		// update the texture frame
+		getNextFrame();
+		// Draw textured quads
+		//CreateGridNoColor();
+		CreateGrid();
+		
+		// get the pixels from framebuffer to dst
+		// https://www.khronos.org/registry/OpenGL-Refpages/es2.0/xhtml/glReadPixels.xml
+		// If the currently bound framebuffer is not the default framebuffer object, 
+		// color components are read from the color image attached to the GL_COLOR_ATTACHMENT0 attachment point. 
+		// http://www.opengl-tutorial.org/intermediate-tutorials/tutorial-14-render-to-texture/
+		
+		glReadPixels(0, 0, outputw, outputh, GL_BGRA, GL_UNSIGNED_BYTE, dst.data);
+		//glReadPixels(0,0,lpbih->biWidth,lpbih->biHeight,GL_BGR_EXT,GL_UNSIGNED_BYTE,bmBits);
+		// GL_BGRA makes it much faster.
+		cvtColor(dst, dstbgr, CV_BGRA2BGR);
+		flip(dstbgr, flipped, 0);
+		outputVideo << flipped;
+		
+		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		glFlush();
+		glutSwapBuffers();
+		
+		// unbind fbo
+		//glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-	// Draw a textured quad
-	CreateGridNoColor();
-	
-	
-	// this has been moved to generatemovie function
-	glReadPixels(0, 0, outputw, outputh, GL_BGRA, GL_UNSIGNED_BYTE, dst.data);
-	//glReadPixels(0,0,lpbih->biWidth,lpbih->biHeight,GL_BGR_EXT,GL_UNSIGNED_BYTE,bmBits);
-	// GL_BGRA makes it much faster.
-	cvtColor(dst, dstbgr, CV_BGRA2BGR);
-	flip(dstbgr, flipped, 0);
-	outputVideo << flipped;
-	
-	
-	glFlush();
-	glutSwapBuffers();
+        
+    }
+
+    
+    
+    else // without FBO
+    {
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, srctextureId);
+
+		// Set Projection Matrix
+		glMatrixMode (GL_PROJECTION);
+		glLoadIdentity();
+		//gluOrtho2D(0, windoww, windowh, 0);
+		gluOrtho2D(-outputw/outputh, outputw/outputh , -1.0 , 1.0);
+		
+
+		// Switch to Model View Matrix
+		glMatrixMode(GL_MODELVIEW);
+		glLoadIdentity();
+
+		// update the texture frame
+		getNextFrame();
+		// Draw a textured quad
+		CreateGrid();
+		
+		
+		// get the pixels from framebuffer to dst
+		glReadPixels(0, 0, outputw, outputh, GL_BGRA, GL_UNSIGNED_BYTE, dst.data);
+		//glReadPixels(0,0,lpbih->biWidth,lpbih->biHeight,GL_BGR_EXT,GL_UNSIGNED_BYTE,bmBits);
+		// GL_BGRA makes it much faster.
+		cvtColor(dst, dstbgr, CV_BGRA2BGR);
+		flip(dstbgr, flipped, 0);
+		outputVideo << flipped;
+		
+		glBindTexture(GL_TEXTURE_2D, 0);
+		
+		glFlush();
+		glutSwapBuffers();
+	}
 
 }
 
@@ -540,8 +613,7 @@ GLvoid OnKeyPress(unsigned char key, int x, int y)
 	glutPostRedisplay();
 }
 
-
-GLvoid OnIdle()
+void getNextFrame()
 {
 	// Capture next frame
 	inputVideo >> src; // gets the next frame into image
@@ -551,13 +623,13 @@ GLvoid OnIdle()
 		exit(0);
 	}
 
-	// Create Texture
+	// update Texture
 	flip(src, flipped, 0);	// flip up down
-	resize(flipped, srcres, Size(2048,2048), 0, 0, INTER_CUBIC);
-	gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, srcres.cols, srcres.rows, GL_BGR, GL_UNSIGNED_BYTE, srcres.data);
+	resize(flipped, srcres, Size(texturew,textureh), 0, 0, INTER_CUBIC);
+	returncode = gluBuild2DMipmaps(GL_TEXTURE_2D, GL_RGBA, srcres.cols, srcres.rows, GL_BGR, GL_UNSIGNED_BYTE, srcres.data);
+	if (returncode)	// if success, returncode=0
+		std::cout << "Errorcode for gluBuild2DMipmaps = " << returncode;
 	
-	// Update View port
-	glutPostRedisplay();
 	
 	std::cout << "\x1B[0E"; // Move to the beginning of the current line.
 	fps++;
@@ -570,10 +642,17 @@ GLvoid OnIdle()
 	}
 	else
 	std::cout << "Frame: " << framenum++ << std::flush;
-        	
-        
 }
+    
 
+
+GLvoid OnIdle()
+{
+	
+	// Update View port
+	glutPostRedisplay();
+	    
+}
 
 
 int main(int argc,char *argv[])
@@ -613,6 +692,12 @@ int main(int argc,char *argv[])
 			infile >> windoww;
 			infile >> tempstring;
 			infile >> windowh;
+			infile >> tempstring;
+			infile >> texturew;
+			infile >> tempstring;
+			infile >> textureh;
+			infile >> tempstring;
+			infile >> fboUsed;
 			infile >> tempstring;
 			infile >> outputfourccstr;
 			infile >> tempstring;
@@ -702,15 +787,14 @@ int main(int argc,char *argv[])
 	//set length of one complete row in destination data (doesn't need to equal img.cols)
 	glPixelStorei(GL_PACK_ROW_LENGTH, dst.step/dst.elemSize());
 	
-	
-	// Create GLUT Window
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_ALPHA);
 	glutInitWindowSize(windoww, windowh);
 	g_hWindow = glutCreateWindow("Display");
-
+	//glutHideWindow();
+	
     // Initialize OpenGL
-	InitGL();
+	InitGL(); 
 	
 	// get OpenGL extensions
 	
@@ -720,19 +804,32 @@ int main(int argc,char *argv[])
     {
         std::cout << "Video card supports GL_ARB_pixel_buffer_object." << std::endl;
         pboMode = 2;
+        
     }
     else
     {
-        std::cout << "Video card does not support GL_ARB_pixel_buffer_object. Output may be slow." << std::endl;
+        std::cout << "Video card does not support GL_ARB_pixel_buffer_object. Output may be slow, or blank." << std::endl;
         pboMode = 0;
+    }
+    
+    fboSupported = ext.isSupported("GL_ARB_framebuffer_object");
+    if(fboSupported)
+    {
+        fboSupported = true;
+        std::cout << "Video card supports GL_ARB_framebuffer_object." << std::endl;
+    }
+    else
+    {
+        fboSupported = fboUsed = false;
+        std::cout << "Video card does NOT support GL_ARB_framebuffer_object. Change fboUsed option to 0." << std::endl;
     }
     
     DATA_SIZE        = S.width * S.height * CHANNEL_COUNT;
      
     
     // init texture objects
-    glGenTextures(1, &textureId);
-    glBindTexture(GL_TEXTURE_2D, textureId);
+    glGenTextures(1, &srctextureId);
+    glBindTexture(GL_TEXTURE_2D, srctextureId);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
@@ -754,6 +851,58 @@ int main(int argc,char *argv[])
         glBufferData(GL_PIXEL_UNPACK_BUFFER, DATA_SIZE, 0, GL_STREAM_DRAW);
         glBindBuffer(GL_PIXEL_UNPACK_BUFFER, 0);
     }
+    
+    if(fboSupported && fboUsed)
+    {
+        // create FBO with output dimensions, clean up when exit.
+        glGenFramebuffers(1, &fboId);
+        glBindFramebuffer(GL_FRAMEBUFFER, fboId);
+        
+        // create a texture object to which the fbo will render
+		glGenTextures(1, &fbotextureId);
+		glBindTexture(GL_TEXTURE_2D, fbotextureId);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+		//glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_GENERATE_MIPMAP, GL_TRUE); // automatic mipmap generation included in OpenGL v1.4
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, outputw, outputh, 0, GL_RGBA, GL_UNSIGNED_BYTE, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+
+        // create RBO to store depth info
+        // needed for mandatory depth test.
+        glGenRenderbuffers(1, &rboDepthId);
+        glBindRenderbuffer(GL_RENDERBUFFER, rboDepthId);
+        glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, outputw, outputh);
+        //glRenderbufferStorageMultisample(GL_RENDERBUFFER, fboSampleCount, GL_DEPTH_COMPONENT, TEXTURE_WIDTH, TEXTURE_HEIGHT);
+        glBindRenderbuffer(GL_RENDERBUFFER, 0);
+
+        // attach a texture to FBO color attachement point
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fbotextureId, 0);
+        //glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, textureId, 0);
+
+        // attach a renderbuffer to depth attachment point
+        glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, rboDepthId);
+        
+        // check if it is OK
+        // https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glCheckFramebufferStatus.xhtml
+        // https://www.swiftless.com/tutorials/opengl/framebuffer.html
+        // But my version is OpenGL 2.1 Mesa, and this is not supported.
+
+        //glBindFramebuffer(GL_FRAMEBUFFER, 0);
+        // unbinding and re-binding costs CPU
+    }
+    else
+    {
+		// if fbo is not supported, 
+		outputw = windoww;
+		outputh = windowh;
+		std::cout << "output w & h = window w & h" << std::endl;
+	}
     
     
 	//GenerateMovie();
