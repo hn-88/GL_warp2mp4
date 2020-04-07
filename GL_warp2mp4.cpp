@@ -139,34 +139,34 @@ void CreateGrid()
    // Thanks, Paul!
      
    glBegin(GL_QUADS);
-   for (i=0;i<nx-1;i++) {
-      for (j=0;j<ny-1;j++) {
-         if (mesh[nx*j+i].i < 0 || mesh[(nx*(j+1))+i].i < 0 || mesh[(nx*(j+1))+(i+1)].i < 0 || mesh[nx*j+i+1].i < 0)
-            continue;
+   //~ for (i=0;i<nx-1;i++) {
+      //~ for (j=0;j<ny-1;j++) {
+         //~ if (mesh[nx*j+i].i < 0 || mesh[(nx*(j+1))+i].i < 0 || mesh[(nx*(j+1))+(i+1)].i < 0 || mesh[nx*j+i+1].i < 0)
+            //~ continue;
 
-         glColor3f(mesh[nx*j+i].i,mesh[nx*j+i].i,mesh[nx*j+i].i);
-         glTexCoord2f(mesh[nx*j+i].u,mesh[nx*j+i].v);
-         glVertex3f(mesh[nx*j+i].x,mesh[nx*j+i].y,0.0);
+         //~ glColor3f(mesh[nx*j+i].i,mesh[nx*j+i].i,mesh[nx*j+i].i);
+         //~ glTexCoord2f(mesh[nx*j+i].u,mesh[nx*j+i].v);
+         //~ glVertex3f(mesh[nx*j+i].x,mesh[nx*j+i].y,0.0);
 
-         glColor3f(mesh[nx*j+i+1].i,mesh[nx*j+i+1].i,mesh[nx*j+i+1].i);
-         glTexCoord2f(mesh[nx*j+i+1].u,mesh[nx*j+i+1].v); 
-         glVertex3f(mesh[nx*j+i+1].x,mesh[nx*j+i+1].y,0.0);
+         //~ glColor3f(mesh[nx*j+i+1].i,mesh[nx*j+i+1].i,mesh[nx*j+i+1].i);
+         //~ glTexCoord2f(mesh[nx*j+i+1].u,mesh[nx*j+i+1].v); 
+         //~ glVertex3f(mesh[nx*j+i+1].x,mesh[nx*j+i+1].y,0.0);
 
-         glColor3f(mesh[nx*(j+1)+i+1].i,mesh[nx*(j+1)+i+1].i,mesh[nx*(j+1)+i+1].i);
-         glTexCoord2f(mesh[nx*(j+1)+i+1].u,mesh[nx*(j+1)+i+1].v);
-         glVertex3f(mesh[nx*(j+1)+i+1].x,mesh[nx*(j+1)+i+1].y,0.0);
+         //~ glColor3f(mesh[nx*(j+1)+i+1].i,mesh[nx*(j+1)+i+1].i,mesh[nx*(j+1)+i+1].i);
+         //~ glTexCoord2f(mesh[nx*(j+1)+i+1].u,mesh[nx*(j+1)+i+1].v);
+         //~ glVertex3f(mesh[nx*(j+1)+i+1].x,mesh[nx*(j+1)+i+1].y,0.0);
 
-         glColor3f(mesh[nx*(j+1)+i].i,mesh[nx*(j+1)+i].i,mesh[nx*(j+1)+i].i);
-         glTexCoord2f(mesh[nx*(j+1)+i].u,mesh[nx*(j+1)+i].v);
-         glVertex3f(mesh[nx*(j+1)+i].x,mesh[nx*(j+1)+i].y,0.0);
+         //~ glColor3f(mesh[nx*(j+1)+i].i,mesh[nx*(j+1)+i].i,mesh[nx*(j+1)+i].i);
+         //~ glTexCoord2f(mesh[nx*(j+1)+i].u,mesh[nx*(j+1)+i].v);
+         //~ glVertex3f(mesh[nx*(j+1)+i].x,mesh[nx*(j+1)+i].y,0.0);
 
-       }
-   }
+       //~ }
+   //~ }
    // testing code for checking if glortho has correct params
-    //~ glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.77778f,  1.0f, -0.0f);
-	//~ glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.77778f,  1.0f, -0.0f);
-	//~ glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.77778f, -1.0f, -0.0f);
-	//~ glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.77778f, -1.0f, -0.0f);
+    glTexCoord2f(1.0f, 1.0f); glVertex3f( 1.77778f,  1.0f, -0.0f);
+	glTexCoord2f(0.0f, 1.0f); glVertex3f(-1.77778f,  1.0f, -0.0f);
+	glTexCoord2f(0.0f, 0.0f); glVertex3f(-1.77778f, -1.0f, -0.0f);
+	glTexCoord2f(1.0f, 0.0f); glVertex3f( 1.77778f, -1.0f, -0.0f);
 	
 
    
