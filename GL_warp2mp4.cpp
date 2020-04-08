@@ -1650,7 +1650,7 @@ void CreateGrid()
 	//~ glMatrixMode (GL_PROJECTION);
 	//~ glLoadIdentity();
 	gluOrtho2D(-0.2885 , 0.2885 , -0.2885 , 0.2885 );
-	// not sure why this is required
+	// these seem to be due to the camera distance and 60 degree FOV
 	// found these numbers by trial and error!
 	glDisable(GL_LIGHTING);
 	glShadeModel(GL_SMOOTH);
