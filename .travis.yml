@@ -72,6 +72,6 @@ deploy:
   provider: releases
   api_key: "eb02d01056d0fc1878301a1076c495e1aa481a4c"
   file_glob: true
-  file: *.map
+  file: GL_warp2mp4*.AppImage
   skip_cleanup: true
   draft: true
