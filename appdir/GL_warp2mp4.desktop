@@ -1,0 +1,13 @@
+#!/usr/bin/env xdg-open
+
+[Desktop Entry]
+Version=1.0
+Name=GL_warp2mp4
+Comment=GL_warp2mp4 tool
+Exec=GL_warp2mp4.bin
+Icon=GL_warp2mp4
+Terminal=true
+Type=Application
+Categories=Development;
+Name[en_IN]=GL_warp2mp4
+
