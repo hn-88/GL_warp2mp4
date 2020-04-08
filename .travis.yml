@@ -42,7 +42,7 @@ install:
    - cd opencv
    - mkdir build
    - cd build
-   - cmake ..
+   - cmake -D BUILD_EXAMPLES=OFF -D BUILD_TESTS=OFF -D BUILD_PERF_TESTS=OFF ..
    - make -j4
    - sudo make install
    - cd ..
